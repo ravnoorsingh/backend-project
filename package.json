@@ -1,0 +1,23 @@
+{
+  "name": "backend-project",
+  "version": "1.0.0",
+  "description": "a simple backend project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravnoorsingh/backend-project.git"
+  },
+  "keywords": [
+    "javascript",
+    "backend"
+  ],
+  "author": "RNoSin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ravnoorsingh/backend-project/issues"
+  },
+  "homepage": "https://github.com/ravnoorsingh/backend-project#readme"
+}
