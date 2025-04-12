@@ -53,7 +53,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function(next) {
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this,this.password, 10)
+    this.password = await bcrypt.hash(this,this.password, 10)
     next()
 })
 
@@ -71,7 +71,7 @@ userSchema.methods.generateAccessToken = function(){
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiryIn: process.env.ACCESS_TOKEM_EXPIRY
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
@@ -82,9 +82,11 @@ userSchema.methods.generateRefreshToken = function(){
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiryIn: process.env.REFRESH_TOKEN_EXPIRY
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
     )
 }
 
 export const User = mongoose.model("User", userSchema)
+
+// https://chatgpt.com/share/67faf8ae-dd14-800c-8f07-2fdb24b4d860
