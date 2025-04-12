@@ -21,7 +21,43 @@ dotenv.config({
 //     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
 //   },
 
-connectDB();
+// connectDB() was as asyncronous method, when an asyncronous method, get is loaded , it returns a promise as well 
+
+// app.listen() :- strarting listening to the server (on a port )to grt any data 
+
+connectDB()
+.then(() => {
+    app.on("error", (error) => {
+        console.error("App-level error: ", error);
+    });
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(` Server is running at port : ${process.env.PORT} `)
+    })
+})
+.catch((err) => {
+    console.log("MONGO db connection failed !!! ",err);
+})
+
+// connectDB()
+// .then(() => {
+//     // Handle app-level custom errors (if needed)
+//     app.on("error", (error) => {
+//         console.error("App-level error: ", error);
+//     });
+
+//     // Start the server and handle server-level errors
+//     const port = process.env.PORT || 8000;
+//     const server = app.listen(port, () => {
+//         console.log(`Server is running at port: ${port}`);
+//     });
+
+//     server.on("error", (error) => {
+//         console.error("Server error: ", error);
+//     });
+// })
+// .catch((err) => {
+//     console.error("MONGO db connection failed!!! ", err);
+// });
 
 
 
