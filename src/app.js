@@ -57,4 +57,16 @@ eg)
 
 */
 
+// routes
+
+import userRouter from "./routes/user.routes.js"
+
+// routes declaration
+// app.use("/users", userRouter)
+app.use("/api/v1/users", userRouter)  
+
+// http://localhost:8000/users  : go to this file ./routes/user.routes.js
+
+// /api/v1  :- to tell about api and it's version
+
 export { app }
