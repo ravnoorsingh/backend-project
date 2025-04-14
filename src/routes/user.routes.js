@@ -21,3 +21,5 @@ router.route("/register").post(
 )
 
 export default router;
+
+// https://chatgpt.com/share/67fccfe6-556c-800c-a457-6c4a7b6115c4
