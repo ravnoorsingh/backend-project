@@ -51,11 +51,27 @@ const userSchema = new Schema(
     }
 )
 
-userSchema.pre("save", async function(next) {
-    if(!this.isModified("password")) return next();
-    this.password = await bcrypt.hash(this,this.password, 10)
-    next()
-})
+// userSchema.pre("save", async function(next) {
+//     if(!this.isModified("password")) return next();
+//     this.password = await bcrypt.hash(this,this.password, 10)
+//     next()
+// })
+
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+        return next();
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
+// https://chatgpt.com/share/67fd6785-5ab0-800c-b27b-b5937bbdc036
 
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)

@@ -22,7 +22,7 @@ const registerUser = asyncHandler( async (req ,res) => {
     // Step 9) Return the response
 
     // Step 1) Get user details from frontend
-    const {fullname, email, username, password} = req.body // extracting the data from the request body using destructuring
+    const {fullName, email, username, password} = req.body // extracting the data from the request body using destructuring
     console.log("email: ", email);
 
     // Check after sending this from postman
@@ -36,7 +36,7 @@ const registerUser = asyncHandler( async (req ,res) => {
     //     throw new ApiError(400, "Fullname is required")
     //  }
     if(
-        [fullname, email, username, password].some((field) =>  field?.trim() === "")
+        [fullName, email, username, password].some((field) =>  field?.trim() === "")
     //     •	.some() is a JavaScript array method that checks if at least one element in the array satisfies the given condition.
 	// •	It returns true if the condition is true for any one element, otherwise false.
 
@@ -83,7 +83,13 @@ const registerUser = asyncHandler( async (req ,res) => {
 
     // Step 4) Check for images , check for avatar
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    //const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
+    // check if coverImage is not an array or empty
 
     /*
     •	req.files: This object is provided by the Multer middleware, which handles file uploads in Express.
@@ -112,7 +118,7 @@ const registerUser = asyncHandler( async (req ,res) => {
 
     // Step 6) Create User Object - Create Entry in DB
     const user = await User.create({
-        fullname, 
+        fullName, 
         avatar: avatar.url,
         coverImage: coverImage?.url || "",
         email,
