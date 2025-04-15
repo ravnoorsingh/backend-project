@@ -1,9 +1,9 @@
 // This middleware will only check if User exists or not
 
-import { ApiError } from "../utils/ApiError";
-import { asyncHandler } from "../utils/asyncHandler";
-import { jwt } from "jsonwebtoken";
-import { User } from "../models/user.model";
+import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import jwt from "jsonwebtoken";
+import { User } from "../models/user.model.js";
 // we will check if the user has the correct access and refresh token , if so we will add a new field to the request object called user (req.user) 
 
 export const verifyJWT = asyncHandler(async (req, _, next) => {
