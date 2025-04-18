@@ -1,0 +1,13 @@
+// author_id in books and _id in author is same fro the same author
+
+// If we are in books right now
+[
+    {
+        $lookup: {
+            from: "authors", // linking books to authors
+            localField: "author_id",    // Taking author_id from books(localField)
+            foreignField: "_id",        // Taking _id from author(foreignField)
+            as: "test"
+        }
+    }
+]
